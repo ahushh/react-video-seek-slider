@@ -14,6 +14,7 @@ interface Props {
   secondsPrefix?: string;
   minutesPrefix?: string;
   getPreviewScreenUrl?: (hoverTimeValue: number) => string;
+  PreviewScreenComponent?: React.FC<{ hoverTimeValue: number }>;
 }
 
 export const HoverTimeWithPreview: React.FC<Props> = ({
@@ -28,7 +29,11 @@ export const HoverTimeWithPreview: React.FC<Props> = ({
   minutesPrefix,
   secondsPrefix,
   getPreviewScreenUrl,
+  PreviewScreenComponent,
 }) => {
+  if (PreviewScreenComponent && getPreviewScreenUrl) {
+    throw new Error('You must specify getPreviewScreenUrl or getPreviewScreenComponent');
+  }
   const hoverTimeElement = useRef<HTMLDivElement>(null);
   const hoverTimeClassName = isThumbActive ? 'hover-time active' : 'hover-time';
 
@@ -61,6 +66,13 @@ export const HoverTimeWithPreview: React.FC<Props> = ({
             backgroundImage: `url(${getPreviewScreenUrl(hoverTimeValue)})`,
           }}
         />
+      )}
+      {isThumbActive && PreviewScreenComponent && (
+        <div
+          className="preview-screen"
+        >
+          <PreviewScreenComponent hoverTimeValue={hoverTimeValue} />
+        </div>
       )}
       {label && <div>{label}</div>}
       {hoverTimeString}

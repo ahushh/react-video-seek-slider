@@ -5,6 +5,18 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { VideoSeekSlider } from './index';
 import { timeToTimeString } from './utils/timeToTimeString';
 
+const PreviewScreenComponent: React.FC<{ hoverTimeValue: number }> = ({ hoverTimeValue }) => {
+  console.log('hoverTimeValue', hoverTimeValue);
+  return (<>
+    <p>Custom Component</p>
+    <div
+      className="preview-screen"
+      style={{ backgroundImage: `url(https://via.placeholder.com/140x60?text=${hoverTimeValue})` }}
+    />
+  </>
+  );
+}
+
 export const DevLayout: React.FC = () => {
   const player = useRef<HTMLVideoElement>(null);
   const previewImage = useRef('');
@@ -156,6 +168,18 @@ export const DevLayout: React.FC = () => {
         minutesPrefix="0:"
       />
       <div className="caption">Simple seeker with no timecodes</div>
+
+      <VideoSeekSlider
+        max={maxTime}
+        currentTime={currentTime}
+        bufferTime={progress}
+        onChange={handleTimeChange}
+        limitTimeTooltipBySides={true}
+        secondsPrefix="00:"
+        minutesPrefix="0:"
+        PreviewScreenComponent={PreviewScreenComponent}
+      />
+      <div className="caption">Seeker with custom preview component</div>
     </div>
   );
 };

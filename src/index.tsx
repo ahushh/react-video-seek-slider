@@ -25,6 +25,7 @@ export interface Props {
   minutesPrefix?: string;
   onChange: (time: number, offsetTime: number) => void;
   getPreviewScreenUrl?: (hoverTimeValue: number) => string;
+  PreviewScreenComponent?: React.FC<{ hoverTimeValue: number }>;
 }
 
 export const VideoSeekSlider: React.FC<Props> = ({
@@ -39,6 +40,7 @@ export const VideoSeekSlider: React.FC<Props> = ({
   timeCodes,
   onChange = () => undefined,
   getPreviewScreenUrl,
+  PreviewScreenComponent,
 }) => {
   const [seekHoverPosition, setSeekHoverPosition] = useState(0);
   const [label, setLabel] = useState('');
@@ -199,6 +201,7 @@ export const VideoSeekSlider: React.FC<Props> = ({
           seekHoverPosition={seekHoverPosition}
           trackWidth={trackWidth}
           getPreviewScreenUrl={getPreviewScreenUrl}
+          PreviewScreenComponent={PreviewScreenComponent}
           minutesPrefix={minutesPrefix}
           secondsPrefix={secondsPrefix}
         />
