@@ -178,6 +178,7 @@ export const DevLayout: React.FC = () => {
         secondsPrefix="00:"
         minutesPrefix="0:"
         PreviewScreenComponent={PreviewScreenComponent}
+        showHoverTimeString={false}
       />
       <div className="caption">Seeker with custom preview component</div>
     </div>
