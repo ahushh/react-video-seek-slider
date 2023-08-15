@@ -15,6 +15,7 @@ interface Props {
   minutesPrefix?: string;
   getPreviewScreenUrl?: (hoverTimeValue: number) => string;
   PreviewScreenComponent?: React.FC<{ hoverTimeValue: number }>;
+  showHoverTimeString?: boolean;
 }
 
 export const HoverTimeWithPreview: React.FC<Props> = ({
@@ -30,6 +31,7 @@ export const HoverTimeWithPreview: React.FC<Props> = ({
   secondsPrefix,
   getPreviewScreenUrl,
   PreviewScreenComponent,
+  showHoverTimeString,
 }) => {
   if (PreviewScreenComponent && getPreviewScreenUrl) {
     throw new Error('You must specify getPreviewScreenUrl or getPreviewScreenComponent');
@@ -75,7 +77,7 @@ export const HoverTimeWithPreview: React.FC<Props> = ({
         </div>
       )}
       {label && <div>{label}</div>}
-      {hoverTimeString}
+      {showHoverTimeString ? hoverTimeString : null}
     </div>
   );
 };
